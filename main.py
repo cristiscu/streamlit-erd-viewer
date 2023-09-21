@@ -324,11 +324,12 @@ def getSession():
         return get_active_session()
     except:
         parser = configparser.ConfigParser()
-        parser.read("profiles_db.conf")
+        parser.read(os.path.join(os.path.expanduser('~'), ".snowsql/config"))
+        section = "connections.my_conn"
         pars = {
-            "account": parser.get("default", "account"),
-            "user": parser.get("default", "user"),
-            "password": os.getenv('SNOWFLAKE_PASSWORD')
+            "account": parser.get(section, "accountname"),
+            "user": parser.get(section, "username"),
+            "password": parser.get(section, "password")
         }
         return Session.builder.configs(pars).create()
 

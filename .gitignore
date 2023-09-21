@@ -1,4 +1,3 @@
 build/*
 *.spec
 venv/*
-profiles_db.conf

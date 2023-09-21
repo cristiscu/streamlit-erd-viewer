@@ -4,6 +4,9 @@
 
 CREATE OR REPLACE DATABASE streamlit_erd_viewer;
 
+GRANT USAGE ON DATABASE streamlit_erd_viewer TO ROLE public;
+GRANT USAGE ON SCHEMA streamlit_erd_viewer.public TO ROLE public;
+
 CREATE STAGE stage
     directory = (enable=true)
     file_format = (type=CSV field_delimiter=None record_delimiter=None);

@@ -55,3 +55,5 @@ To install and run this as a Streamlit app in your Snowflake account:
 * In **deploy.sql**, change with the path to your **main.py** file. Then run **`snowsql -c my_conn -f scripts/deploy.sql`**, which will (re)create a **STREAMLIT_ERD_VIEWER** database, will load the Python file in a stage and will create a Streamlit app from this file. As an alternative, in a new database (and schema), create a new Streamlit app with the default template. Then replace the Python code with the full content of our **main.py** file.
 * Test and run the Streamlit app online. Share a link to this app with other roles or users.
 * To cleanup, drop the database with this Streamlit object. Or run **`snowsql -c my_conn -f scripts/cleanup.sql`** from a Terminal.
+
+![Streamlit App](images/streamlit-app.png)

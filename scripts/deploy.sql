@@ -11,11 +11,11 @@ CREATE STAGE stage
     directory = (enable=true)
     file_format = (type=CSV field_delimiter=None record_delimiter=None);
 
-PUT file://C:\Projects\streamlit-apps\streamlit-erd-viewer\main.py @stage
+PUT file://C:\Projects\streamlit-apps\streamlit-erd-viewer\app.py @stage
     overwrite=true auto_compress=false;
 
 CREATE STREAMLIT streamlit_erd_viewer
     ROOT_LOCATION = '@streamlit_erd_viewer.public.stage'
-    MAIN_FILE = '/main.py'
+    MAIN_FILE = '/app.py'
     QUERY_WAREHOUSE = "COMPUTE_WH";
 SHOW STREAMLITS;

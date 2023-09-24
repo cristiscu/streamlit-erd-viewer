@@ -340,10 +340,10 @@ def getThemes():
             "#e0e0e0", "#000000", "#000000", "rounded", "Mrecord", "#696969", "1"),
         "Blue Navy": Theme("#1a5282", "#1a5282", "#ffffff",
             "#1a5282", "#000000", "#ffffff", "rounded", "Mrecord", "#0078d7", "2"),
-        "Gradient Green": Theme("#716f64", "#008080:#ffffff", "#008080:#ffffff",
-            "transparent", "#000000", "#000000", "rounded", "Mrecord", "#696969", "1"),
-        "Blue Sky": Theme("#716f64", "#d3dcef:#ffffff", "#d3dcef:#ffffff",
-            "transparent", "#000000", "#000000", "rounded", "Mrecord", "#696969", "1"),
+        #"Gradient Green": Theme("#716f64", "#008080:#ffffff", "#008080:#ffffff",
+        #    "transparent", "#000000", "#000000", "rounded", "Mrecord", "#696969", "1"),
+        #"Blue Sky": Theme("#716f64", "#d3dcef:#ffffff", "#d3dcef:#ffffff",
+        #    "transparent", "#000000", "#000000", "rounded", "Mrecord", "#696969", "1"),
         "Common Gray Box": Theme("#6c6c6c", "#e0e0e0", "#f5f5f5",
             "#e0e0e0", "#000000", "#000000", "rounded", "record", "#696969", "1")
     }
@@ -372,6 +372,7 @@ def getSchema(database):
     sel = 0 if "PUBLIC" not in names else names.index("PUBLIC")
     return st.sidebar.selectbox('Schema', tuple(names), index=sel)
 
+st.set_page_config(layout="wide")
 session = getSession()
 themes = getThemes()
 database = getDatabase()
@@ -390,6 +391,8 @@ elif len(tables) == 0:
     st.write("Found no tables in the current database and schema.")
 else:
     with st.spinner('Generating diagram and script...'):
-        tabERD, tabScript = st.tabs(["ERD Viewer", "Create Script"])
-        tabERD.graphviz_chart(createGraph(tables, themes[theme], showColumns, showTypes))
+        tabERD, tabDOT, tabScript = st.tabs(["ERD Viewer", "DOT Code", "Create Script"])
+        s = createGraph(tables, themes[theme], showColumns, showTypes)
+        tabERD.graphviz_chart(s)
+        tabDOT.code(s, language="dot", line_numbers=True)
         tabScript.code(createScript(tables, database, schema), language="sql", line_numbers=True)
